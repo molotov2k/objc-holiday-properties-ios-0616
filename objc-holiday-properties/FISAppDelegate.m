@@ -10,40 +10,42 @@
 }
 
 - (NSArray *)holidaysInSeason:(NSString *)season {
-    
-    return nil;
+    return self.database[season];
 }
 
 - (NSArray *)suppliesInHoliday:(NSString *)holiday
                       inSeason:(NSString *)season {
     
-    return nil;
+    return self.database[season][holiday];
 }
 
 - (BOOL)holiday:(NSString* )holiday
      isInSeason:(NSString *)season {
+    if ([[self.database[season] allKeys] containsObject:holiday]) {
+        return true;
+    }
     
-    return nil;
+    return false;
 }
 
 - (BOOL)supply:(NSString *)supply
    isInHoliday:(NSString *)holiday
       inSeason:(NSString *)season {
-    
-    return nil;
+    if ([self.database[season][holiday] containsObject:supply]) {
+        return true;
+    }
+    return false;
 }
 
 - (void)addHoliday:(NSString *)holiday
           toSeason:(NSString *)season {
-    
-    // no return
+    self.database[season][holiday] = @[];
 }
 
 - (void)addSupply:(NSString *)supply
         toHoliday:(NSString *)holiday
          inSeason:(NSString *)season {
-    
-    // no return
+    [self.database[season][holiday] addObject:supply];
 }
 
 @end
